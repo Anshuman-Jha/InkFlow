@@ -1,6 +1,6 @@
 import React from "react";
 import { fetcher } from "@/lib/coingecko.action";
-import { TrendingCoin, TrendingCoinItem } from "@/app/type";
+import { TrendingCoin } from "@/app/type";
 import DataTable from "../DataTable";
 import { DataTableColumn } from "@/app/type";
 import { TrendingUp, TrendingDown } from "lucide-react";
@@ -35,7 +35,7 @@ const TrendingCoins = async () => {
         return (
 
           <Link href={`/coins/${item.id}`}>
-            <Image src={item.large} alt={item.new} width={36} height={36} />
+            <Image src={item.large} alt={item.name} width={36} height={36} />
             <p> {item.name} </p>
           </Link>
 
@@ -69,8 +69,6 @@ const TrendingCoins = async () => {
       header: 'Price',
       cellClassName: 'price-cell',
       cell: (coin) => coin.item.data.price
-
-
     }
   ];
 

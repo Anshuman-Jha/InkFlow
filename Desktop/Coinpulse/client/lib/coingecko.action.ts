@@ -2,7 +2,7 @@
 import 'dotenv/config'
 
 import qs from 'query-string';
-import { CoinGeckoErrorBody } from '@/app/type';
+import { CoinGeckoErrorBody, PoolData, SearchCoin } from '@/app/type';
 
 type QueryParams = Record<string, string | number | boolean | null | undefined>;
 
@@ -45,4 +45,49 @@ export async function fetcher<T>(
 
     return res.json();
 
-} 
+}
+
+export async function getPools(
+    id: string,
+    network?: string | null,
+    contractAddress?: string | null,
+): Promise<PoolData> {
+    const fallback: PoolData = {
+        id: '',
+        address: '',
+        name: '',
+        network: '',
+    };
+
+    if (network && contractAddress) {
+        try {
+            const poolData = await fetcher<{ data: PoolData[] }>(
+                `/onchain/networks/${network}/tokens/${contractAddress}/pools`,
+            );
+
+            return poolData.data?.[0] ?? fallback;
+        } catch (error) {
+            console.log(error);
+            return fallback;
+        }
+    }
+
+    try {
+        const poolData = await fetcher<{ data: PoolData[] }>('/onchain/search/pools', { query: id });
+
+        return poolData.data?.[0] ?? fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+
+export async function searchCoins(query: string): Promise<SearchCoin[]> {
+    try {
+        const data = await fetcher<{ coins: SearchCoin[] }>('/search', { query });
+        return data.coins || [];
+    } catch (error) {
+        console.error('Search API Error:', error);
+        return [];
+    }
+}
