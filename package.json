@@ -1,0 +1,21 @@
+{
+  "name": "inkflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anshuman-Jha/InkFlow.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Anshuman-Jha/InkFlow/issues"
+  },
+  "homepage": "https://github.com/Anshuman-Jha/InkFlow#readme"
+}
